@@ -207,16 +207,16 @@ Mejora la calidad del código: Contribuye a un código más limpio y confiable.
 Nombrar pruebas correctamente es clave para el éxito en equipo, facilitando la comprensión del código y la colaboración efectiva. Aunque no es obligatorio, tener un formato claro para las pruebas es muy beneficioso.
 
  ### ¿Cómo definir el formato de los nombres de las pruebas?
-Todos los tests deben agruparse en clases, cada una relacionada con una clase de tu proyecto. Por ejemplo, si tienes una clase llamada BankAccount, la clase de prueba debería llamarse BankAccountTest.
-Cada prueba debe comenzar con test_, para que las herramientas de testing la identifiquen fácilmente.
+Todos los tests deben agruparse en clases, cada una relacionada con una clase de tu proyecto. Por ejemplo, si tienes una clase llamada BankAccount, la clase de prueba debería llamarse `BankAccountTest`.
+Cada prueba debe comenzar con `test_`, para que las herramientas de testing la identifiquen fácilmente.
 
-El siguiente elemento en el nombre debe ser el método que estás probando. Si es un método deposit, el nombre sería test_deposit_.
+El siguiente elemento en el nombre debe ser el método que estás probando. Si es un método deposit, el nombre sería `test_deposit_`.
 
 ### ¿Cómo estructurar el escenario de la prueba?
-Después del método, añade el escenario. Esto se refiere a los valores o parámetros que usas en la prueba. Por ejemplo, en el caso de un valor positivo en un depósito, el escenario sería positive_amount.
+Después del método, añade el escenario. Esto se refiere a los valores o parámetros que usas en la prueba. Por ejemplo, en el caso de un valor positivo en un depósito, el escenario sería `positive_amount`.
 
 ### ¿Cómo describir el resultado esperado?
-Para finalizar el nombre, indica el resultado esperado. Si el depósito incrementa el saldo, añade algo como increase_balance. Así, un nombre de prueba completo sería: test_deposit_positive_amount_increase_balance.
+Para finalizar el nombre, indica el resultado esperado. Si el depósito incrementa el saldo, añade algo como increase_balance. Así, un nombre de prueba completo sería: `test_deposit_positive_amount_increase_balance`.
 
 ### ¿Por qué es útil este formato?
 Permite a cualquier miembro del equipo entender el propósito de la prueba sin revisar el código completo.
@@ -255,20 +255,19 @@ Se instala la librería requests con
 ``` bash
 pip install requests
 ```
-Se crea un archivo api_client.py donde conectamos con la API utilizando requests.get.
+Se crea un archivo api_client.py donde conectamos con la API utilizando `requests.get`.
 Al recibir la respuesta, se convierte el resultado a JSON para obtener la información de país, ciudad y región.
 
 ### ¿Cómo probamos sin hacer llamadas reales?
-El problema principal de las pruebas de integraciones con APIs es que pueden demorar, ya que las respuestas dependen de factores externos. Para evitar esto, se usan Mocks. A través del decorador @patch de unittest.mock, podemos interceptar la llamada a la API y retornar datos predefinidos.
+El problema principal de las pruebas de integraciones con APIs es que pueden demorar, ya que las respuestas dependen de factores externos. Para evitar esto, se usan Mocks. A través del decorador `@patch de unittest.mock`, podemos interceptar la llamada a la API y retornar datos predefinidos.
 
 Pasos a seguir:
 
-Decorar la función de prueba con @patch.
+Decorar la función de prueba con `@patch`.
 Simular el valor retornado usando mock.return_value para definir qué debe devolver la llamada a la API.
 Definir tanto el código de estado como el contenido del JSON que esperamos recibir.
 ### ¿Cómo validar que nuestra simulación funciona correctamente?
 Además de simular respuestas, debemos asegurarnos de que las pruebas validen correctamente los llamados. Se puede usar assertCalledOnceWith para garantizar que la URL y los parámetros pasados son los correctos.
-
 
 ## simulación de Side Effect Con Mock en Pruebas Unitarias
 Mock nos permite simular comportamientos variables, una herramienta útil cuando queremos probar cómo reacciona nuestro código ante diferentes escenarios sin modificar el entorno real. Uno de los usos más poderosos es el “side effect”, que nos ayuda a hacer que un método falle en un caso y funcione en otro. Esto es clave para manejar errores temporales, como en el caso de una API de pagos que rechaza una tarjeta incorrecta, pero acepta una correcta en un segundo intento.
@@ -299,13 +298,13 @@ En esta lección, hemos aprendido a modificar el comportamiento de objetos y fun
 Para implementar la restricción de horario, se utilizó la clase datetime para obtener la hora actual. Definimos que los retiros solo pueden realizarse durante el horario de oficina: entre las 8 AM y las 5 PM. Cualquier intento fuera de este horario lanzará una excepción personalizada llamada WithdrawalError.
 
 Se implementó la lógica en el método de retiro de la clase BankAccount.
-La restricción se basa en comparar la hora actual obtenida con datetime.now().hour.
+La restricción se basa en comparar la hora actual obtenida con `datetime.now().hour`.
 Si la hora es menor que las 8 AM o mayor que las 5 PM, se lanza la excepción.
 
 ### ¿Cómo podemos probar la funcionalidad de manera efectiva?
-Las pruebas unitarias permiten simular diferentes horas del día para validar que las restricciones funcionen correctamente. Para lograrlo, usamos el decorador patch del módulo unittest.mock, el cual modifica temporalmente el comportamiento de la función datetime.now().
+Las pruebas unitarias permiten simular diferentes horas del día para validar que las restricciones funcionen correctamente. Para lograrlo, usamos el decorador patch del módulo `unittest.mock`, el cual modifica temporalmente el comportamiento de la `función datetime.now()`.
 
-Con patch, podemos definir un valor de retorno específico para now(), como las 7 AM o las 10 AM.
+Con patch, podemos definir un valor de retorno específico para `now()`, como las 7 AM o las 10 AM.
 De esta forma, se puede validar que la excepción se lance correctamente si el retiro ocurre fuera del horario permitido.
 En caso de que el retiro sea dentro del horario, la prueba verificará que el saldo de la cuenta se actualice correctamente.
 
@@ -316,13 +315,13 @@ Durante la implementación, encontramos un error en la condición lógica del ho
 
 ## Parametrizacion de pruebas Con SubTest en unitTest
 
-El uso de SubTest en UnitTest te permite optimizar tus pruebas evitando la duplicación de código. Imagina que necesitas probar un método con varios valores diferentes. Sin SubTest, tendrías que crear varias pruebas casi idénticas, lo que resulta ineficiente. SubTest permite parametrizar pruebas, lo que significa que puedes ejecutar la misma prueba con diferentes valores sin repetir el código.
+El uso de SubTest en UnitTest te permite optimizar tus pruebas evitando la duplicación de código. Imagina que necesitas probar un método con varios valores diferentes. Sin `SubTest`, tendrías que crear varias pruebas casi idénticas, lo que resulta ineficiente. `SubTest` permite parametrizar pruebas, lo que significa que puedes ejecutar la misma prueba con diferentes valores sin repetir el código.
 
 ### ¿Cómo evitar la duplicación de pruebas con SubTest?
 Al utilizar SubTest, puedes definir todos los valores que deseas probar en una lista o diccionario. Luego, iteras sobre estos valores mediante un bucle for, ejecutando la misma prueba con cada conjunto de parámetros. Así, si es necesario modificar la prueba, solo tienes que hacer cambios en un único lugar.
 
 ### ¿Cómo implementar SubTest en un caso práctico?
-Para ilustrarlo, se puede crear una prueba llamada test_deposit_various_values. En lugar de duplicar la prueba con diferentes valores de depósito, utilizas un diccionario que contiene los valores a probar y el resultado esperado. Después, recorres estos valores con SubTest usando la estructura with self.subTest(case=case) y ejecutas la prueba para cada valor del diccionario. Esto asegura que cada prueba sea independiente y evita sumar valores a la cuenta de manera incorrecta.
+Para ilustrarlo, se puede crear una prueba llamada `test_deposit_multiple_values`. En lugar de duplicar la prueba con diferentes valores de depósito, utilizas un diccionario que contiene los valores a probar y el resultado esperado. Después, recorres estos valores con SubTest usando la estructura `with self.subTest(case=case)` y ejecutas la prueba para cada valor del diccionario. Esto asegura que cada prueba sea independiente y evita sumar valores a la cuenta de manera incorrecta.
 
 ### ¿Cómo gestionar errores con SubTest?
 SubTest también es útil para identificar errores específicos. Si una prueba falla con un conjunto particular de parámetros, SubTest te permite ver fácilmente qué valores causaron el fallo. Esto facilita mucho la corrección de errores, ya que puedes aislar rápidamente los casos problemáticos y corregirlos de manera eficiente.
@@ -332,22 +331,22 @@ SubTest también es útil para identificar errores específicos. Si una prueba f
 El uso de Doctest es una herramienta poderosa que te permite escribir pruebas directamente en la documentación del código, lo que facilita que otros desarrolladores comprendan y verifiquen los resultados esperados. Además de los Unit Tests tradicionales, Doctest permite que tus comentarios sean interactivos, ofreciendo ejemplos funcionales que se ejecutan dentro del código de Python. Veamos cómo puedes utilizarlo de manera eficiente.
 
 ### ¿Qué es Doctest y cómo se usa?
-Doctest es una librería que está incluida en Python y que permite crear pruebas en los comentarios del código. Esto lo hace práctico ya que puedes escribir pruebas de manera muy similar a una sesión interactiva de Python. Solo debes añadir los ejemplos dentro de los comentarios y ejecutarlos con el comando python -m doctest.
+Doctest es una librería que está incluida en Python y que permite crear pruebas en los comentarios del código. Esto lo hace práctico ya que puedes escribir pruebas de manera muy similar a una sesión interactiva de Python. Solo debes añadir los ejemplos dentro de los comentarios y ejecutarlos con el comando `python -m doctest`.
 
 ### ¿Cómo se estructuran las pruebas en Doctest?
 Para escribir una prueba, simplemente crea un comentario que simule una sesión interactiva. Estas sesiones se caracterizan por comenzar con >>>. Por ejemplo, si tienes una función de suma en tu clase Calculator, podrías escribir lo siguiente:
-```
+``` python
 >>> sum(5, 7)
 12
 ```
 Esto se ejecutará como si estuvieras en el shell de Python, y esperará que la salida sea 12. Si el resultado no coincide con lo esperado, Doctest te notificará el error.
 
 ### ¿Qué hacer si hay un error en la prueba?
-Si Doctest encuentra un error, revisa el mensaje de error y ajusta el código o la prueba según sea necesario. Por ejemplo, si ejecutas una prueba y esperabas 12 pero el resultado fue 11, Doctest te informará de la discrepancia. Solucionas el error, corriges el comentario, y ejecutas nuevamente.
+Si Doctest encuentra un error, revisa el mensaje de error y ajusta el código o la prueba según sea necesario. Por ejemplo, si ejecutas una prueba y esperabas 12 pero el resultado fue 11, `Doctest` te informará de la discrepancia. Solucionas el error, corriges el comentario, y ejecutas nuevamente.
 
 ### ¿Cómo manejar excepciones en Doctest?
-Doctest también te permite probar excepciones. Si tienes una función que lanza un ValueError al intentar dividir por cero, puedes capturar este comportamiento en el comentario:
-```
+`Doctest` también te permite probar excepciones. Si tienes una función que lanza un ValueError al intentar dividir por cero, puedes capturar este comportamiento en el comentario:
+``` python
 >>> divide(10, 0)
 Traceback (most recent call last):
   ...
@@ -367,11 +366,11 @@ Generar datos de prueba puede ser una tarea tediosa, pero con la librería Faker
 
 ### ¿Cómo instalar Faker y qué ventajas ofrece?
 Para empezar a utilizar Faker, simplemente debemos instalarla a través de la terminal con el comando:
-```
+``` bash
 pip install Faker
 ```
 En Windows
-```
+``` bash
 pip freeze | findstr Faker
 ```
 Una vez instalada, podemos importarla en nuestro proyecto e instanciar un generador de datos aleatorios. Faker nos ofrece una gran variedad de métodos predefinidos para generar nombres, correos, cuentas bancarias, entre otros. La ventaja clave es que nos permite automatizar la generación de múltiples entradas en cada ejecución de nuestras pruebas.
@@ -410,22 +409,22 @@ Coverage es una herramienta que se ejecuta junto a las pruebas y captura un repo
 ### ¿Cómo instalar y utilizar Coverage?
 Para instalar Coverage en un proyecto Python, sigue los siguientes pasos:
 
-Abre la terminal e instala la herramienta con 
-```
+1. Abre la terminal e instala la herramienta con 
+```bash
 pip install coverage.
 ```
-Después, usa 
-linux y mac 
-```
+2. Después, usa 
+- linux y mac 
+``` bash
 pip freeze | grep coverage
 ```
-windows
-```
+- windows
+``` bash
 pip freeze | findstr coverage
 ```
-para agregar la librería a tu archivo de requirements.
+3. para agregar la librería a tu archivo de requirements.
 Una vez instalada, ejecuta el comando 
-```
+```bash
 coverage run -m unittest discover -s tests, 
 ```
 que corre las pruebas en la carpeta tests.
@@ -436,7 +435,7 @@ Para generar el informe de cobertura de código:
 Usa el comando coverage report para obtener un resumen de las pruebas.
 Si quieres un reporte visual más detallado, ejecuta coverage html. Esto creará una carpeta con archivos HTML que podrás abrir en el navegador.
 ### ¿Cómo mejorar el reporte excluyendo archivos de prueba?
-Para evitar que los archivos de prueba aparezcan en el reporte, agrega el parámetro --source=src al comando coverage run. Esto asegura que solo se evalúe el código fuente de la aplicación y no las pruebas en sí mismas.
+Para evitar que los archivos de prueba aparezcan en el reporte, agrega el parámetro `--source=src` al comando coverage run. Esto asegura que solo se evalúe el código fuente de la aplicación y no las pruebas en sí mismas.
 
 ### ¿Cómo detectar y corregir código sin pruebas?
 Coverage permite identificar líneas específicas que no han sido probadas. Usando el reporte HTML, puedes hacer clic en los archivos para ver las líneas de código no ejecutadas. Un ejemplo sería la detección de un método que no maneja una división por cero. Al agregar un test para esta excepción, puedes aumentar la cobertura total del proyecto.
@@ -447,16 +446,116 @@ En proyectos con equipos grandes, es recomendable establecer un porcentaje míni
 ## Integración Continua con GitHub Actions para Pruebas Automatizadas
 Integrar una suite de pruebas en un sistema de Continuous Integration (CI) es clave para automatizar el proceso de verificación de cambios en el código. En este caso, usaremos GitHub Actions para correr nuestras pruebas de manera automática cada vez que haya un cambio en el repositorio, asegurándonos de que el código esté siempre funcionando correctamente.
 
-## ¿Cómo configurar tu primera GitHub Action?
+### ¿Cómo configurar tu primera GitHub Action?
 Primero, accede a la pestaña de “Actions” dentro de tu repositorio en GitHub. Ahí encontrarás un Marketplace con varias opciones. Busca “Python” y selecciona la Action “Python Application”. Esta configuración correrá pruebas automáticamente cada vez que haya un push o un pull request hacia la rama “Main”.
 
-## ¿Qué pasos incluye el workflow de pruebas?
+### ¿Qué pasos incluye el workflow de pruebas?
 Clonación del repositorio: El workflow comienza clonando tu código, similar a un git clone.
 Configuración de Python: Utiliza la versión 3.10 de Python, asegurando compatibilidad con el código del proyecto.
 Instalación de dependencias: Ejecuta las instalaciones de las librerías listadas en el archivo requirements.txt, por ejemplo, Faker y Coverage.
-Modificación del comando de pruebas: En lugar de utilizar un test genérico, el comando se cambia a `python -m unittest discover test` , adaptado a las pruebas unitarias del proyecto.
-## ¿Cómo verificar si el workflow fue exitoso?
+Modificación del comando de pruebas: En lugar de utilizar un test genérico, el comando se cambia a `python -m unittest discover -s test` , adaptado a las pruebas unitarias del proyecto.
+### ¿Cómo verificar si el workflow fue exitoso?
 Una vez configurado el archivo y hecho el commit, puedes ver el progreso de la ejecución en la pestaña de “Actions”. Si todo salió bien, aparecerá un checkmark verde indicando que las pruebas pasaron exitosamente.
 
-## ¿Cómo mejorar la cobertura de pruebas en tu pipeline?
+### ¿Cómo mejorar la cobertura de pruebas en tu pipeline?
 El reto adicional consiste en ejecutar las pruebas con diferentes versiones de Python utilizando Matrix en GitHub Actions. Esto te permitirá probar tu código en varios entornos, asegurando mayor robustez y evitando problemas de compatibilidad.
+
+## Pruebas Parametrizadas con PyTest: Instalación y Ejecución
+Python ofrece una gran variedad de herramientas, y una de las más útiles para pruebas automatizadas es PyTest. PyTest mejora considerablemente la experiencia del desarrollador al permitir escribir y ejecutar pruebas de manera más eficiente. En esta guía veremos cómo instalar PyTest, crear pruebas parametrizadas y ejecutar un ejemplo básico.
+
+### ¿Cómo instalar y configurar PyTest?
+- Abre la terminal y ejecuta el siguiente comando para instalar PyTest:
+`pip install pytest`
+- Recuerda agregarlo a tu archivo requirements.txt con:
+linux/mac `pip freeze | grep pytest`  o en windows 
+`pip freeze | findstr pytest`
+### ¿Cómo crear una prueba con PyTest?
+1. En la carpeta de pruebas, crea un archivo llamado `test_pytest.py`.
+2. Importa PyTest en tu archivo:
+``` python 
+import pytest
+```
+3. Crea una función de prueba simple como esta:
+``` python
+def test_suma():
+    a = 4
+    b = 4
+    assert a + b == 8
+```
+4. Ejecuta la prueba con el siguiente comando:
+`pytest test_pytest.py`
+PyTest no requiere la creación de clases para agrupar pruebas, lo cual simplifica el código. En este caso, las pruebas se agrupan por archivo.
+
+### ¿Cómo parametrizar una prueba en PyTest?
+1. Utiliza decoradores de PyTest para parametrizar la prueba:
+``` python
+@pytest.mark.parametrize("amount, expected", [
+    (100, 5000),
+    (200, 5500),
+    (300, 6000)
+])
+def test_balance(amount, expected):
+    assert calcular_balance(amount) == expected
+```
+En este ejemplo, la función de prueba recibe varios casos con valores diferentes de amount y expected.
+Ejecuta las pruebas:
+`pytest -v`
+### ¿Qué ventajas ofrece PyTest al ejecutar pruebas?
+- PyTest ofrece mensajes de error detallados y fáciles de leer, resaltados con colores.
+- Los errores incluyen los valores específicos que causaron la falla.
+- Con la opción -v, PyTest detalla qué pruebas se ejecutaron y sus resultados.
+### ¿Qué ocurre si una prueba falla?
+Si una prueba falla, PyTest te indicará exactamente qué valores no coincidieron. Por ejemplo, si uno de los valores esperados es incorrecto:
+``` python
+def test_balance():
+    assert calcular_balance(100) == 5400  # Este valor está incorrecto
+```
+Al ejecutar nuevamente la prueba, PyTest te mostrará la diferencia entre el valor esperado y el real.
+["Documentación de pytest"](https://docs.pytest.org/en/latest/)
+
+
+## Uso de IA para Generar Pruebas Unitarias en Proyectos Software
+Las herramientas de inteligencia artificial han revolucionado la forma en que desarrollamos software, simplificando tareas como la creación de pruebas unitarias. Estas herramientas permiten generar pruebas más rápido y con mayor precisión, ahorrando tiempo y reduciendo errores. A continuación, exploramos algunas herramientas clave que todo desarrollador debería conocer.
+
+### ¿Qué es GitHub Copilot y cómo puede ayudarte a escribir pruebas?
+GitHub Copilot es una extensión que puedes instalar en tu editor de código. Con ella, puedes chatear, darle contexto sobre tu código y pedirle que genere pruebas unitarias. Esta herramienta se integra directamente en el flujo de trabajo del desarrollador, lo que facilita la creación de pruebas con pocos comandos. Al escribir un prompt claro, como `“create a test that doesn’t allow the deposit to be negative”`, Copilot genera automáticamente el código de la prueba, optimizando el proceso de TDD (desarrollo guiado por pruebas).
+
+### Beneficios de usar GitHub Copilot:
+- Ahorra tiempo generando pruebas automáticamente.
+- Mejora la precisión al sugerir código basado en grandes bases de datos de proyectos.
+- Facilita la integración en editores populares como Visual Studio Code.
+### ¿Qué ofrece Supermaven y cómo se compara con otras herramientas?
+Supermaven es una herramienta similar que permite integrar la API de ChatGPT directamente en tu editor de código. Con esta integración, puedes utilizar las capacidades de ChatGPT para generar y modificar pruebas en tiempo real. Lo interesante de Supermaven es que utiliza la misma suscripción de ChatGPT, lo que lo convierte en una opción versátil y eficiente para desarrolladores que ya usan esta IA.
+
+### Características destacadas de Supermaven:
+- Compatibilidad con múltiples editores de código.
+- Capacidad para modificar pruebas según el contexto que le proporciones.
+- Soporte para autocompletar código y optimizar la generación de pruebas unitarias.
+### ¿Cómo usar ChatGPT para generar y modificar pruebas?
+ChatGPT es otra herramienta clave para generar pruebas. Al darle contexto sobre el código, como la clase BankAccount, puedes solicitar que modifique o cree pruebas unitarias parametrizadas, lo que simplifica aún más el proceso de validación. Esta interacción con la IA facilita la generación de pruebas más completas, incluyendo distintos casos de prueba como depósitos positivos y negativos.
+
+### Proceso de uso de ChatGPT para pruebas:
+1. Proporciona el contexto del código.
+2. Pide que modifique o cree una prueba específica.
+3. Analiza y ejecuta el código generado para verificar su funcionalidad.
+### ¿Cuáles son las precauciones al usar herramientas de inteligencia artificial para pruebas?
+Es crucial recordar que, aunque estas herramientas son extremadamente útiles, no debes copiar y pegar código sin antes revisarlo. La IA utiliza grandes bases de datos de código, algunos de los cuales pueden contener errores o prácticas no recomendadas. Es importante que valides siempre el código generado antes de implementarlo en producción.
+
+### Consejos para un uso adecuado:
+- Revisa cuidadosamente cada sugerencia antes de integrarla a tu código.
+- Asegúrate de que las pruebas cubran todos los casos posibles.
+- Ajusta el código generado según las mejores prácticas de tu equipo o proyecto.
+### ¿Qué otras buenas prácticas debes seguir al escribir pruebas unitarias?
+Además de usar herramientas de IA, existen otras buenas prácticas que debes tener en cuenta al desarrollar pruebas unitarias:
+
+- Agrupa las pruebas por funcionalidad o clase.
+- Utiliza herramientas como coverage para verificar qué partes del código no han sido probadas.
+- Borra los comentarios generados automáticamente para mantener el código limpio.
+### Lista de recursos útiles:
+- [Documentación de GitHub Copilot](https://docs.github.com/es/copilot)
+- [Supermaven API para ChatGPT](https://supermaven.com/)
+
+### Posibles nombres SEO para la clase:
+“Cómo crear pruebas unitarias con inteligencia artificial”
+“Automatiza tus pruebas unitarias con GitHub Copilot y ChatGPT”
+“Herramientas para generar pruebas unitarias rápidas y efectivas”
